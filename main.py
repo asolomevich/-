@@ -1,19 +1,25 @@
+# Создание списка студентов
 students_list = [Lena, Katy, Dima]
 
+# Оценивающее предметов с их успеваемостью
 grades = {
     'PYTHON': [4, 5, 6, 7],
     'GIT': [2, 56, 345, 543]
 
 }
 
+# Функция для получения средней оценки по домашним заданиям для указанного курса
 def get_avg_hw_grade(students_list, course):
     total_sum = 0
+    # Проходим по каждому студенту в списке
     for student in students_list:
         for c, grades in student.grades.items():
             if c == course:
                 total_sum += sum(grades) / len(grades)
+    # Возвращаем среднее значение по всем студентам
     return total_sum / len(students_list)
 
+# Объявляем класс Студент с его атрибутами и методами
 class Student:
     def __init__(self, name, surname, gender):
         self.name = name
@@ -23,7 +29,9 @@ class Student:
         self.courses_in_progress = []
         self.grades = {}
 
+     # Метод для оценки лекции
     def rate_lecture(self, lecturer, course, grade):
+        # Проверка на корректность ввода данных
         if isinstance(lecturer,
                       Lecturer) and course in lecturer.courses_attached and course in self.courses_in_progress:
             if course in lecturer.grades:
@@ -33,6 +41,7 @@ class Student:
         else:
             return 'Ошибка'
 
+    # Метод для получения средней оценки
     def get_average_grade(self):
         sum_hw = 0
         count = 0
@@ -41,6 +50,7 @@ class Student:
             count += len(course)
         return round(sum_hw / count, 2)
 
+    # Печать информации о студенте
     def __str__(self):
         res = f'Имя: {self.name} \n' \
               f'Фамилия: {self.surname} \n' \
@@ -61,7 +71,7 @@ class Student:
                 print(f'{self.name} {self.surname} учится лучше, чем {other_student.name} {other_student.surname}')
             return compare
 
-
+# Классы Mentor, Lecturer и Reviewer наследуются от Mentor с аналогичной логикой
 class Mentor:
     def __init__(self, name, surname):
         self.name = name
